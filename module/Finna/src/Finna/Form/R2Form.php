@@ -102,7 +102,7 @@ class R2Form extends Form
             $url = $urlHelper('content-page', ['page' => 'tutkijasali']);
             return $this->translate($translationKey, ['%%url%%' => $url]);
         case 'R2_register_form_help_post_html':
-            return $this->translate($translationKey, );
+            return $this->translate($translationKey);
         case 'R2_register_form_usage_help_html':
             $help = $this->translate('R2_register_form_usage_help_tooltip_html');
             return $this->translate($translationKey, ['%%title%%' => $help]);
