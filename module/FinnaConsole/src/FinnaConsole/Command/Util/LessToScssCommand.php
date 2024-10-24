@@ -754,7 +754,7 @@ class LessToScssCommand extends Command
             }
             if ($addDefault) {
                 foreach ($lines as &$line) {
-                    $line = preg_replace('/(\$.+):([^;]+);/', '$1:$2 !default;', $line);
+                    $line = preg_replace('/^(\$.+):([^;]+);/', '$1:$2 !default;', $line);
                 }
                 unset($line);
             }
