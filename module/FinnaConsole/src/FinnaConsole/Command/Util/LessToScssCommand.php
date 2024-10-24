@@ -278,8 +278,7 @@ class LessToScssCommand extends Command
                 continue;
             }
             $lineId = "$filename:$lineNo";
-            $parts = explode('//', $line, 2);
-            $line = $parts[0];
+            [$line] = $this->extractComment($line);
 
             $cStart = strpos($line, '/*');
             $cEnd = strrpos($line, '*/');
@@ -288,7 +287,7 @@ class LessToScssCommand extends Command
             } elseif (false !== $cEnd) {
                 $inComment = false;
             }
-            if ($inComment) {
+            if ($inComment || preg_match('/^\s*\/\*.*\*\/\s*$/', $line)) {
                 continue;
             }
 
@@ -348,9 +347,8 @@ class LessToScssCommand extends Command
                 continue;
             }
             $lineId = "$filename:$lineNo";
-            $parts = explode('//', $line, 2);
-            $line = $parts[0];
-            $comments = $parts[1] ?? null;
+
+            [$line, $comments] = $this->extractComment($line);
 
             if (str_starts_with(trim($line), '@mixin ')) {
                 $inMixin = $this->getBlockLevelChange($line);
@@ -370,7 +368,7 @@ class LessToScssCommand extends Command
             } elseif (false !== $cEnd) {
                 $inComment = false;
             }
-            if ($inComment) {
+            if ($inComment || preg_match('/^\s*\/\*.*\*\/\s*$/', $line)) {
                 continue;
             }
 
@@ -390,12 +388,55 @@ class LessToScssCommand extends Command
                     ];
                 }
             }
-            $lines[$idx] = $line . ($comments ? "//$comments" : '');
+            $lines[$idx] = $line . (null !== $comments ? "//$comments" : '');
         }
 
         $this->updateFileCollection($filename, compact('lines', 'requiredVars'));
 
         return true;
+    }
+
+    /**
+     * Extract a single-line comment from a line
+     *
+     * @param string $line Line
+     *
+     * @return array remaining line and the comment (or null)
+     */
+    protected function extractComment(string $line): array
+    {
+        $result = '';
+        $comment = null;
+        $inSingle = false;
+        $inDouble = false;
+        $escape = false;
+        for ($i = 0; $i < mb_strlen($line, 'UTF-8'); $i++) {
+            $ch = mb_substr($line, $i, 1, 'UTF-8');
+            switch ($ch) {
+                case '"':
+                    if (!$inSingle) {
+                        $inDouble = !$inDouble;
+                    }
+                    break;
+                case "'":
+                    if (!$inDouble) {
+                        $inSingle = !$inSingle;
+                    }
+                    break;
+                case '\\':
+                    $escape = !$escape;
+                    break;
+                case '/':
+                    // Check for a comment:
+                    if (!$inSingle && !$inDouble && !$escape && mb_substr($line, $i + 1, 1, 'UTF-8') === '/') {
+                        $comment = mb_substr($line, $i + 2, null, 'UTF-8');
+                        break 2;
+                    }
+                    break;
+            }
+            $result .= $ch;
+        }
+        return [$result, $comment];
     }
 
     /**
