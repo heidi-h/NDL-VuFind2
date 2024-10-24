@@ -39,6 +39,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use VuFind\Config\PathResolver;
 
 use function array_key_exists;
+use function array_slice;
 use function count;
 use function dirname;
 use function in_array;
@@ -707,12 +708,6 @@ class LessToScssCommand extends Command
      */
     protected function writeTargetFiles(): bool
     {
-        if (!file_exists($this->targetDir)) {
-            if (!mkdir($this->targetDir, 0o777, true)) {
-                $this->error("Could not create target directory $this->targetDir");
-                return false;
-            }
-        }
         // If we have a variables file, collect all variables needed by later files and add them:
         if ($this->variablesFile) {
             $variablesFileIndex = $this->allFiles[$this->variablesFile]['index'] ?? PHP_INT_MAX;
@@ -743,6 +738,10 @@ class LessToScssCommand extends Command
             if (!$this->isInTargetDir($fullPath)) {
                 continue;
             }
+            if (!$this->ensureTargetDirectory($fullPath)) {
+                return false;
+            }
+
             $lines = $fileSpec['lines'] ?? [];
 
             // Add !default to existing variables (unless excluded):
@@ -812,6 +811,29 @@ class LessToScssCommand extends Command
             $fullPath .= '.scss';
         }
         return $fullPath;
+    }
+
+    /**
+     * Ensure that the directory for the given file exists
+     *
+     * @param string $filename File name
+     *
+     * @return bool
+     */
+    protected function ensureTargetDirectory(string $filename): bool
+    {
+        $dirParts = explode(DIRECTORY_SEPARATOR, dirname($filename));
+        // Create the directory recursively for the parts that don't exist:
+        for ($i = 1; $i <= count($dirParts); $i++) {
+            $path = implode(DIRECTORY_SEPARATOR, array_slice($dirParts, 0, $i));
+            if (!is_dir($path)) {
+                if (!mkdir($path)) {
+                    $this->error("Could not create directory $path");
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     /**
