@@ -822,7 +822,7 @@ class LessToScssCommand extends Command
      */
     protected function ensureTargetDirectory(string $filename): bool
     {
-        $dirParts = explode(DIRECTORY_SEPARATOR, dirname($filename));
+        $dirParts = explode(DIRECTORY_SEPARATOR, ltrim(dirname($filename), DIRECTORY_SEPARATOR));
         // Create the directory recursively for the parts that don't exist:
         for ($i = 1; $i <= count($dirParts); $i++) {
             $path = implode(DIRECTORY_SEPARATOR, array_slice($dirParts, 0, $i));
