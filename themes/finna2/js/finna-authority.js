@@ -20,7 +20,7 @@ finna.authority = (function finnaAuthority() {
 
     tabs.toggleClass('collapsed', mode);
     authorityRecommend.find('li.toggle').toggleClass('collapsed', mode);
-    finna.common.setCookie('collapseAuthorityInfo', collapsed);
+    VuFind.cookie.set('collapseAuthorityInfo', collapsed);
   }
 
   function initAuthorityRecommendTabs()
