@@ -78,7 +78,7 @@ finna.itemStatus = (function finnaItemStatus() {
       const self = $(this);
       var source = self.find('option:selected').data('source');
       // prefer 3 latest sources
-      var cookie = finna.common.getCookie('preferredRecordSource');
+      var cookie = VuFind.cookie.get('preferredRecordSource');
       try {
         cookie = JSON.parse(cookie);
       } catch (error) {
@@ -92,7 +92,7 @@ finna.itemStatus = (function finnaItemStatus() {
         return index < 2 && src !== source;
       });
       cookie.unshift(source);
-      finna.common.setCookie('preferredRecordSource', JSON.stringify(cookie));
+      VuFind.cookie.set('preferredRecordSource', JSON.stringify(cookie));
       selects.each(function setValues() {
         if (self[0] === $(this)[0]) {
           return;
