@@ -13,7 +13,7 @@ finna.comments = (function finnaComments() {
 
   /**
    * Initialize form for the comments
-   * @param {Function} parentMethod Parent method to call
+   * @param {Function} parentMethod Parent method to call first
    */
   function initCommentForm(parentMethod) {
     $('.comment-list .delete').off('click');
@@ -110,7 +110,7 @@ finna.comments = (function finnaComments() {
    * Initialize comment list
    * @param {boolean} allowCommenting Should commenting be allowed
    * @param {boolean} allowRating     Should rating be allowed
-   * @param {number}  commentCount    Amount of comments
+   * @param {number}  commentCount    Comment count
    */
   function initCommentList(allowCommenting, allowRating, commentCount) {
     $('.recordTabs #usercomments .count').text(commentCount);

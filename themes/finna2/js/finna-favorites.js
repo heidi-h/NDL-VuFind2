@@ -19,7 +19,7 @@ finna.favorites = (function finnaFavorites() {
   });
 
   /**
-   * Show information of finna favorites
+   * Show information of Finna favorites
    * @param {object} response Response from ajax call
    */
   function showInfo(response) {
@@ -29,7 +29,7 @@ finna.favorites = (function finnaFavorites() {
   }
 
   /**
-   * Import favorites given to form
+   * Import favorites by uploading a form
    */
   function upload() {
     var spinner = VuFind.icon('spinner', {}, true);

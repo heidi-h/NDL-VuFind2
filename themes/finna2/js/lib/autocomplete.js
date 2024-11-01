@@ -28,9 +28,9 @@
     var autocompleteTop = 0;
 
     /**
-     * Align element properly to input
+     * Align the element properly with the input
      * @param {jQuery} input Input to align to
-     * @param {jQuery} element Auto complete container element to align
+     * @param {jQuery} element Autocomplete container element to align
      */
     function align(input, element) {
       var position = input.offset();
@@ -93,7 +93,7 @@
     }
 
     /**
-     * Get if filters should be preserved
+     * Get state of "preserve filters" toggle
      * @param {HTMLElement} input Input to use to find applied df filters
      * @returns {boolean} Should filters be preserved?
      */
@@ -319,7 +319,7 @@
     }
 
     /**
-     * Perform a search in intervals
+     * Perform a search with debounce
      * @param {jQuery} input Element to listen for writing
      * @param {jQuery} element Autocomplete element container
      */

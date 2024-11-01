@@ -1,7 +1,7 @@
 /*global VuFind, finna */
 finna.authority = (function finnaAuthority() {
   /**
-   * Toggles authority info collapse element
+   * Toggle authority info collapse element
    * @param {boolean} mode Should the authorityBox be hidden
    */
   function toggleAuthorityInfoCollapse(mode)
@@ -78,7 +78,7 @@ finna.authority = (function finnaAuthority() {
 
   /**
    * Initialize authority result information
-   * @param {jQuery} _holder Holder of the authority result
+   * @param {jQuery} [_holder] Holder of the authority result
    */
   function initAuthorityResultInfo(_holder) {
     var holder = typeof _holder === 'undefined' ? $(document) : _holder;

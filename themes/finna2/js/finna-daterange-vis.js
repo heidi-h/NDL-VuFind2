@@ -15,9 +15,9 @@ finna.dateRangeVis = (function finnaDateRangeVis() {
   var openTimelineCallback = null;
 
   /**
-   * Add zeros in front number
+   * Pad number with leading zeros
    * @param {number} _number Number to add zeros for
-   * @param {number} _length How many numbers should be shown minimum
+   * @param {number} _length Minimum length to pad to
    * @returns {string} Number with padded zeros
    */
   function padZeros(_number, _length) {
@@ -214,7 +214,7 @@ finna.dateRangeVis = (function finnaDateRangeVis() {
   }
 
   /**
-   * Show visualized timeline
+   * Show a visualized timeline
    */
   function showVis() {
     // Display timeline when facet animation is complete
@@ -331,7 +331,7 @@ finna.dateRangeVis = (function finnaDateRangeVis() {
 
   /**
    * Update field limits
-   * @param {object} evt Event object 
+   * @param {object} evt Event object
    */
   function updateFieldLimits(evt) {
     var params = evt.data;
@@ -455,7 +455,7 @@ finna.dateRangeVis = (function finnaDateRangeVis() {
   /**
    * Initialize timeline navigation
    * @param {string} backend Backend identifier
-   * @param {jQuery} _holder Holder for the timeline
+   * @param {jQuery} _holder Container for the timeline
    */
   function initTimelineNavigation(backend, _holder) {
     _holder.find('.navigation div:not(.expand-modal)').on(

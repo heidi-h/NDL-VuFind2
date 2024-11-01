@@ -13,7 +13,7 @@ finna.common = (function finnaCommon() {
    * Get field from the object.
    * @param {object} obj   Object to search for the field
    * @param {string} field Field to look for
-   * @returns {?string} The field found or null if undefined.
+   * @returns {?*} The field found or null if undefined.
    */
   function getField(obj, field) {
     if (field in obj && typeof obj[field] != 'undefined') {
@@ -24,7 +24,7 @@ finna.common = (function finnaCommon() {
 
   /**
    * Initialize Qr code link
-   * @param {jQuery} _holder Holder for the qr code link
+   * @param {jQuery} [_holder] Container for the qr code link
    */
   function initQrCodeLink(_holder) {
     var holder = typeof _holder === 'undefined' ? $(document) : _holder;

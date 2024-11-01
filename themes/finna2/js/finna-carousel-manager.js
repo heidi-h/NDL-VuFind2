@@ -10,7 +10,7 @@ finna.carouselManager = (() => {
   /**
    * Calculate the gap value from amount of items per page
    * @param {number} perPage The value to calculate gap value from
-   * @returns {number} Gap value 
+   * @returns {number} Gap value
    */
   function calculateGapValue(perPage) {
     if (perPage % 2 === 0 || perPage === 1) {

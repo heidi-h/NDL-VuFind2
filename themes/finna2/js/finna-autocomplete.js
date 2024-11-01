@@ -1,7 +1,7 @@
 /* global VuFind, finna, extractClassParams */
 finna.autocomplete = (function finnaAutocomplete() {
   /**
-   * Get if filters should be preserved
+   * Get state of "preserve filters" toggle
    * @returns {boolean} Should filters be preserved
    */
   function getPreserveFiltersMode() {
