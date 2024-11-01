@@ -3,7 +3,7 @@ finna.finnaSurvey = (function finnaSurvey() {
   var _cookieName = 'finnaSurvey';
 
   /**
-   *
+   * Initialize finna survey events
    */
   function init() {
     var cookie = VuFind.cookie.get(_cookieName);
