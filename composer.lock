@@ -11335,20 +11335,20 @@
         },
         {
             "name": "tecnickcom/tcpdf",
-            "version": "6.6.2",
+            "version": "6.7.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tecnickcom/TCPDF.git",
-                "reference": "e3cffc9bcbc76e89e167e9eb0bbda0cab7518459"
+                "reference": "cfbc0028cc23f057f2baf9e73bdc238153c22086"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tecnickcom/TCPDF/zipball/e3cffc9bcbc76e89e167e9eb0bbda0cab7518459",
-                "reference": "e3cffc9bcbc76e89e167e9eb0bbda0cab7518459",
+                "url": "https://api.github.com/repos/tecnickcom/TCPDF/zipball/cfbc0028cc23f057f2baf9e73bdc238153c22086",
+                "reference": "cfbc0028cc23f057f2baf9e73bdc238153c22086",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.0"
+                "php": ">=5.5.0"
             },
             "type": "library",
             "autoload": {
@@ -11373,7 +11373,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "LGPL-3.0-only"
+                "LGPL-3.0-or-later"
             ],
             "authors": [
                 {
@@ -11395,7 +11395,7 @@
             ],
             "support": {
                 "issues": "https://github.com/tecnickcom/TCPDF/issues",
-                "source": "https://github.com/tecnickcom/TCPDF/tree/6.6.2"
+                "source": "https://github.com/tecnickcom/TCPDF/tree/6.7.7"
             },
             "funding": [
                 {
@@ -11403,7 +11403,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2022-12-17T10:28:59+00:00"
+            "time": "2024-10-26T12:15:02+00:00"
         },
         {
             "name": "vstelmakh/url-highlight",
