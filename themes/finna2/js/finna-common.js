@@ -1,4 +1,5 @@
 /*global VuFind, finna */
+/*exported multiFacetsSelectionEnabled */
 finna.common = (function finnaCommon() {
   /**
    * Decode an HTML string
@@ -189,3 +190,6 @@ finna.common = (function finnaCommon() {
 
   return my;
 })();
+
+// TODO: hack for disabling multi-facet selection until completed:
+var multiFacetsSelectionEnabled = false;
