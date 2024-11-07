@@ -29,6 +29,8 @@
 
 namespace FinnaConsole\Command\Util;
 
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Formatter\OutputFormatter;
@@ -190,6 +192,13 @@ class LessToScssCommand extends Command
                 'If specified, enables SCSS in the target theme(s)',
             )
             ->addOption(
+                'check_file_timestamps',
+                null,
+                InputOption::VALUE_REQUIRED,
+                'If specified, enables file timestamp check that skips conversion if the files in the target directory'
+                . ' have changed since last conversion.'
+            )
+            ->addOption(
                 'check_config',
                 null,
                 InputOption::VALUE_NONE,
@@ -222,6 +231,7 @@ class LessToScssCommand extends Command
         $variablesFile = $input->getOption('variables_file');
         $patterns = $input->getArgument('main_file');
         $checkConfig = $input->getOption('check_config');
+        $timestampFile = $input->getOption('check_file_timestamps');
 
         foreach ($patterns as $pattern) {
             foreach (glob($pattern) as $mainFile) {
@@ -254,6 +264,15 @@ class LessToScssCommand extends Command
                         }
                     }
                 }
+                if (
+                    $timestampFile
+                    && $this->filesNewerThanTimestampFile($timestampFile, $mainFile)
+                ) {
+                    $this->output->writeln(
+                        "<info>Skipping $mainFile - Files in target directory modified since last conversion"
+                    );
+                    continue;
+                }
 
                 $this->output->writeln("<info>Processing $mainFile");
                 // First read all vars:
@@ -270,6 +289,15 @@ class LessToScssCommand extends Command
                 // Write out the target files:
                 if (!$this->writeTargetFiles()) {
                     return Command::FAILURE;
+                }
+
+                // Update timestamp file if specified:
+                if ($timestampFile) {
+                    $timestampFilePath = $this->targetDir . "/$timestampFile";
+                    if (!touch($timestampFilePath)) {
+                        $this->error("Could not write timestamp file $timestampFilePath");
+                        return Command::FAILURE;
+                    }
                 }
             }
         }
@@ -1028,5 +1056,33 @@ class LessToScssCommand extends Command
     protected function isReadableFile(string $filename): bool
     {
         return file_exists($filename) && (is_file($filename) || is_link($filename));
+    }
+
+    /**
+     * Check for files newer than the timestamp file in the target directory
+     *
+     * @param string $timestampFile Timestamp file path
+     * @param string $mainFile      Main file being processed
+     *
+     * @return bool
+     */
+    protected function filesNewerThanTimestampFile(string $timestampFile, string $mainFile): bool
+    {
+        $targetTimestampFile = $this->targetDir . "/$timestampFile";
+        if (!file_exists($targetTimestampFile) || !($timestamp = filemtime($targetTimestampFile))) {
+            return false;
+        }
+        $targetMainFile = $this->targetDir . '/' . preg_replace('/\.less$/', '', basename($mainFile)) . '.scss';
+        $it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($this->targetDir));
+        foreach ($it as $file => $info) {
+            if ($file === $targetMainFile) {
+                // Don't care about target main file, it's centrally managed:
+                continue;
+            }
+            if ($info->getMTime() > $timestamp) {
+                return true;
+            }
+        }
+        return false;
     }
 }
