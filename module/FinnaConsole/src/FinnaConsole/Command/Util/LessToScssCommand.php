@@ -1075,7 +1075,7 @@ class LessToScssCommand extends Command
         $targetMainFile = $this->targetDir . '/' . preg_replace('/\.less$/', '', basename($mainFile)) . '.scss';
         $it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($this->targetDir));
         foreach ($it as $file => $info) {
-            if ($file === $targetMainFile) {
+            if ($file === $targetMainFile || !str_ends_with($file, '.scss')) {
                 // Don't care about target main file, it's centrally managed:
                 continue;
             }
