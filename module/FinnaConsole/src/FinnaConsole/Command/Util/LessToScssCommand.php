@@ -874,6 +874,10 @@ class LessToScssCommand extends Command
                 $linesToAdd[] = '';
                 array_unshift($lines, ...$linesToAdd);
             }
+            // Unlink target first just in case it's a symlink:
+            if (file_exists($fullPath)) {
+                unlink($fullPath);
+            }
             // Write the updated file:
             if (false === file_put_contents($fullPath, implode(PHP_EOL, $lines) . PHP_EOL)) {
                 $this->error("Could not write file $fullPath");
