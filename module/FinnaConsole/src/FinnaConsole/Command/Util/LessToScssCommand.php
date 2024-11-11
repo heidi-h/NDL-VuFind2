@@ -875,7 +875,7 @@ class LessToScssCommand extends Command
                 array_unshift($lines, ...$linesToAdd);
             }
             // Write the updated file:
-            if (false === file_put_contents($fullPath, implode(PHP_EOL, $lines)) . PHP_EOL) {
+            if (false === file_put_contents($fullPath, implode(PHP_EOL, $lines) . PHP_EOL)) {
                 $this->error("Could not write file $fullPath");
             }
             $this->debug("Created $fullPath");
