@@ -465,6 +465,10 @@ ol {
     background: @modal-header-background;
     font-size: @content-headings-font-size-h4;
     padding: 8px 1em;
+
+    h2 {
+      margin: 0.5rem 0;
+    }
   }
   .pm__body, .pm__footer {
     padding-left: 1em;
@@ -487,6 +491,12 @@ ol {
       }
     }
   }
+}
+// Quick fix for bad lessToSass conversion (see https://github.com/vufind-org/vufind/pull/4125)
+@media screen and (max-width: 640px) {
+    .show--preferences #cc-main .cc--anim .pm{
+        transform: translateY(0)!important;
+    }
 }
 
 // OIDC Login Prompt
