@@ -492,12 +492,6 @@ ol {
     }
   }
 }
-// Quick fix for bad lessToSass conversion (see https://github.com/vufind-org/vufind/pull/4125)
-@media screen and (max-width: 640px) {
-    .show--preferences #cc-main .cc--anim .pm{
-        transform: translateY(0)!important;
-    }
-}
 
 // OIDC Login Prompt
 .oauth2-prompt {
@@ -518,5 +512,34 @@ ol {
   }
   .select-card-wrapper {
     display: block;
+  }
+}
+
+// Styled checkboxes
+.checkbox-container {
+  input[type=checkbox] {
+    height: 16px;
+    width: 16px;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    border: 1px solid @gray-light;
+    border-radius: 4px;
+    margin: 0px;
+    top: 3px;
+    position: relative;
+
+    &:checked{
+      background-color: black;
+      &:after{
+        font-family: 'Fontawesome';
+        content: "\f00c";
+        color: white;
+        position: absolute;
+        font-size: 14px;
+        line-height: 14px;
+        font-weight: normal;
+      }
+    }
   }
 }
