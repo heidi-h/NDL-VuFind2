@@ -1,5 +1,6 @@
 // Support functions
 
+@use "sass:color";
 @use "sass:math";
 
 @function de-gamma($n) {
@@ -21,9 +22,9 @@
 
 // sRGB BT-709 BRIGHTNESS
 @function __brightness($c) {
-	$rlin: de-gamma(math.div(red($c), 255));
-	$glin: de-gamma(math.div(green($c), 255));
-	$blin: de-gamma(math.div(blue($c), 255));
+	$rlin: de-gamma(math.div(color.red($c), 255));
+	$glin: de-gamma(math.div(color.green($c), 255));
+	$blin: de-gamma(math.div(color.blue($c), 255));
 	@return re-gamma(0.2126 * $rlin + 0.7152 * $glin + 0.0722 * $blin) * 100;
 }
 
