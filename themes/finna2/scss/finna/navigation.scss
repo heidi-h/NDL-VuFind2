@@ -161,11 +161,12 @@
       justify-content: left;
     }
     > a:not(.card-header) {
-      padding-left: 32px;
+      padding-left: 2rem;
     }
     .icon {
-      margin-left: -1.25em;
+      margin-left: -1.3rem;
       color: $brand-primary;
+      position: absolute;
     }
   }
   > li {
