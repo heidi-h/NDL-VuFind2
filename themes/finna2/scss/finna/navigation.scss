@@ -40,7 +40,6 @@
     left: auto;
     > li {
       > a {
-        color: $text-color;
         width: 250px;
         .icon {
           padding-top: 3px;
@@ -171,7 +170,6 @@
   }
   > li {
     border-bottom: 1px solid $gray-lighter;
-    line-height: 30px;
     cursor: pointer;
 
     > ul {
