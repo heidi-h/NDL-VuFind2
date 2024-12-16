@@ -322,7 +322,7 @@ table#componentparts {
   }
   .even td {
 /* #SCSS> */
-    background: color.adjust($nav-tabs-border-color, $alpha: 0.8);
+    background: $gray-ultralight;
 /* <#SCSS */
 
   }
