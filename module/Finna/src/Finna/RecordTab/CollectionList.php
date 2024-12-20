@@ -51,4 +51,15 @@ class CollectionList extends \VuFind\RecordTab\CollectionList
         $driver = $this->getRecordDriver();
         return $driver->tryMethod('isCollection') || $driver->tryMethod('getContainingCollections');
     }
+
+    /**
+     * Get the on-screen description for this tab.
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->driver->tryMethod('getArchiveType') === 'collection'
+            ? 'Collection Items' : 'Archive Content';
+    }
 }
