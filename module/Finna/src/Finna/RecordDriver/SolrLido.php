@@ -2034,11 +2034,10 @@ class SolrLido extends \VuFind\RecordDriver\SolrDefault implements \Laminas\Log\
             if (!in_array($type, $this->nonPlaceEvents)) {
                 $displayDate = $node->event->eventDate->displayDate ?? null;
                 if (!empty($displayDate)) {
-                    $date = (string)($this->getLanguageSpecificItem(
-                        $displayDate,
-                        $language
-                    ));
-                    $headings[] = ['data' => $date];
+                    $date = trim((string)$this->getLanguageSpecificItem($displayDate, $language));
+                    if (!empty($date)) {
+                        $headings[] = ['data' => $date];
+                    }
                 }
             }
         }
